@@ -6,6 +6,9 @@
 
 #include IMPL
 
+#define ORIG_VER    0
+#define OPT_VER     1
+#define HASH_VER    2
 #define DICT_FILE "./dictionary/words.txt"
 
 
@@ -24,7 +27,7 @@ static double diff_in_second(struct timespec t1, struct timespec t2)
 
 int main(int argc, char *argv[])
 {
-#if MODE==2
+#if MODE == HASH_VER
     FILE *fp;
     int i = 0;
     char line[MAX_LAST_NAME_SIZE];
@@ -42,7 +45,7 @@ int main(int argc, char *argv[])
     entry *hashTable[HASH_TABLE_SIZE];
     entry *pHead, *e;
     printf("size of entry : %lu bytes\n", sizeof(entry));
-    for(i=0; i<HASH_TABLE_SIZE; i++){
+    for(i=0; i<HASH_TABLE_SIZE; i++) {
         hashTable[i] = NULL;
     }
 
@@ -87,10 +90,10 @@ int main(int argc, char *argv[])
     printf("execution time of append() : %lf sec\n", cpu_time1);
     printf("execution time of findName() : %lf sec\n", cpu_time2);
 
-    for(i=0; i<HASH_TABLE_SIZE; i++){
+    for(i=0; i<HASH_TABLE_SIZE; i++) {
         pHead = hashTable[i];
 
-        while(pHead != NULL){
+        while(pHead != NULL) {
             e = pHead;
             pHead = pHead->pNext;
             free(e);
@@ -157,9 +160,9 @@ int main(int argc, char *argv[])
     cpu_time2 = diff_in_second(start, end);
 
     FILE *output;
-#if MODE == 0
+#if MODE == ORIG_VER
     output = fopen("orig.txt", "a");
-#elif MODE == 1
+#elif MODE == OPT_VER
     output = fopen("opt.txt", "a");
 #endif
     fprintf(output, "append() findName() %lf %lf\n", cpu_time1, cpu_time2);

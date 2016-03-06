@@ -25,7 +25,7 @@ phonebook_hash: $(SRCS_common) phonebook_hash.c phonebook_hash.h
 
 run: $(EXEC)
 	echo 3 | sudo tee /proc/sys/vm/drop_caches
-	watch -d -t "./phonebook_orig && echo 3 | sudo tee /proc/sys/vm/drop_caches"
+	watch -d -t "./phonebook_opt && echo 3 | sudo tee /proc/sys/vm/drop_caches"
 
 cache-test: $(EXEC)
 	echo 3 | sudo tee /proc/sys/vm/drop_caches
